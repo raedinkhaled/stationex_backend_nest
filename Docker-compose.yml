@@ -1,0 +1,16 @@
+version: '3.8' # You can adjust this version if needed
+
+services:
+  supertokens-postgresql:
+    image: registry.supertokens.io/supertokens/supertokens-postgresql
+    ports:
+      - '3567:3567'
+
+    environment:
+      API_KEYS: 'Bkjsv3sunsso1n8=-dickjissj3ncisds,uniasn89==asdcda-OI982JIUN=-,uasniuuiu11asn89==asdcda-OI982JIUN=-'
+      POSTGRESQL_USER: 'postgres'
+      POSTGRESQL_PASSWORD: 'admin'
+      POSTGRESQL_HOST: 'host.docker.internal'
+      POSTGRESQL_PORT: '5432'
+      POSTGRESQL_DATABASE_NAME: 'stationex-backend'
+    restart: always # Optional: to automatically restart the container on failure or system reboot
