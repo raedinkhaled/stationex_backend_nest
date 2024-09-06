@@ -12,6 +12,9 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true, // Transform the request to instance of DTO
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
 

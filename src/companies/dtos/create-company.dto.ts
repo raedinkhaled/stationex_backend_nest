@@ -29,7 +29,7 @@ export class CreateCompanyDTO {
   @IsString()
   @MinLength(8)
   @MaxLength(13)
-  phoneSecond: string;
+  phoneSecond?: string;
 
   @IsNotEmpty()
   @IsString()

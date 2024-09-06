@@ -11,19 +11,19 @@ export class CreateUserAccountDTO {
   @IsNotEmpty()
   @MinLength(12)
   @MaxLength(36)
-  superTokensUserId: string;
+  supertokensuserid: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
   @MaxLength(36)
-  firstName: string;
+  firstname: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
   @MaxLength(36)
-  lastName: string;
+  lastname: string;
 
   @IsEmail()
   @IsNotEmpty()
@@ -35,5 +35,5 @@ export class CreateUserAccountDTO {
   @IsNotEmpty()
   @MinLength(9)
   @MaxLength(20)
-  phoneNumber: string;
+  phonenumber: string;
 }

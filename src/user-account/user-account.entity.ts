@@ -10,21 +10,21 @@ export class UserAccount {
     nullable: false,
     length: 36,
   })
-  superTokensUserId: string;
+  supertokensuserid: string;
 
   @Column({
     type: 'varchar',
     length: 36,
     nullable: false,
   })
-  firstName: string;
+  firstname: string;
 
   @Column({
     type: 'varchar',
     length: 36,
     nullable: false,
   })
-  lastName: string;
+  lastname: string;
 
   @Column({
     type: 'varchar',
@@ -38,12 +38,12 @@ export class UserAccount {
     length: 92,
     nullable: false,
   })
-  phoneNumber: string;
+  phonenumber: string;
 
   @Column({
     type: 'boolean',
     nullable: false,
     default: false,
   })
-  isActive: boolean;
+  isactive: boolean;
 }

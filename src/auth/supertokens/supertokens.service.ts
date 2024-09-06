@@ -1,13 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 import supertokens from 'supertokens-node';
 import Session from 'supertokens-node/recipe/session';
-import ThirdParty from 'supertokens-node/recipe/thirdparty';
+/*import ThirdParty from 'supertokens-node/recipe/thirdparty';*/
 import EmailPassword from 'supertokens-node/recipe/emailpassword';
 import Dashboard from 'supertokens-node/recipe/dashboard';
 import UserMetadata from 'supertokens-node/recipe/usermetadata';
 
 import { ConfigInjectionToken, AuthModuleConfig } from '../config.interface';
 import { UserAccountService } from 'src/user-account/user-account.service';
+import UserRoles from 'supertokens-node/recipe/userroles';
 
 @Injectable()
 export class SupertokensService {
@@ -22,7 +23,9 @@ export class SupertokensService {
         apiKey: config.apiKey,
       },
       recipeList: [
-        Session.init(),
+        Session.init({
+          exposeAccessTokenToFrontendInCookieBasedAuth: true,
+        }),
         UserMetadata.init(),
         EmailPassword.init({
           signUpFeature: {
@@ -70,12 +73,12 @@ export class SupertokensService {
                       phone_number: phoneNumber.value,
                     });
                     const userAccount = {
-                      superTokensUserId: userId,
-                      firstName: firstName.value,
-                      lastName: lastName.value,
+                      supertokensuserid: userId,
+                      firstname: firstName.value,
+                      lastname: lastName.value,
                       email: formFields.find((field) => field.id === 'email')
                         .value,
-                      phoneNumber: phoneNumber.value,
+                      phonenumber: phoneNumber.value,
                     };
                     await userAccountService.createUserAccount(userAccount);
                   }
@@ -87,12 +90,13 @@ export class SupertokensService {
           },
         }),
         Dashboard.init(),
-        ThirdParty.init({
+        UserRoles.init(),
+        /*ThirdParty.init({
           // We have provided you with development keys which you can use for testing.
           // IMPORTANT: Please replace them with your own OAuth keys for production use.
           signInAndUpFeature: {
             providers: [
-              /*  {
+               {
                 config: {
                   thirdPartyId: 'google',
                   clients: [
@@ -104,10 +108,10 @@ export class SupertokensService {
                   ],
                 },
               },
-              */
+              
             ],
           },
-        }),
+        }), */
       ],
     });
   }
