@@ -19,6 +19,7 @@ import { SectionModule } from './section/section.module';
 import { DispenserModule } from './dispenser/dispenser.module';
 import { PistolModule } from './pistol/pistol.module';
 import { UserAccountModule } from './user-account/user-account.module';
+import { PaginationModule } from './common/pagination/pagination.module';
 @Module({
   imports: [
     AuthModule.forRoot({
@@ -67,6 +68,7 @@ import { UserAccountModule } from './user-account/user-account.module';
     DispenserModule,
     PistolModule,
     UserAccountModule,
+    PaginationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

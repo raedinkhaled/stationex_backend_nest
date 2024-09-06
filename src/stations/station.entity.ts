@@ -23,6 +23,7 @@ export class Station {
 
   @OneToOne(() => Company, {
     cascade: true,
+    eager: true,
   })
   @JoinColumn()
   company: Company;
