@@ -6,7 +6,6 @@ import { UsersModule } from './users/users.module';
 import { CompaniesModule } from './companies/companies.module';
 import { StationsModule } from './stations/stations.module';
 import { AuthModule } from './auth/auth.module';
-
 @Module({
   imports: [
     AuthModule.forRoot({

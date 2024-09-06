@@ -1,36 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, PrimaryGeneratedColumn, ViewEntity } from 'typeorm';
 
-@Entity()
+@ViewEntity({ name: 'emailpassword_users' })
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
-  @Column({
-    type: 'varchar',
-    length: 96,
-    nullable: false,
-  })
-  firstName: string;
-
-  @Column({
-    type: 'varchar',
-    length: 96,
-    nullable: false,
-  })
-  lastName: string;
-
-  @Column({
-    type: 'varchar',
-    length: 13,
-    nullable: false,
-    unique: true,
-  })
-  phone: string;
+  user_id: string;
 
   @Column({
     type: 'varchar',
@@ -38,22 +11,4 @@ export class User {
     unique: true,
   })
   email: string;
-
-  @Column({
-    type: 'varchar',
-    nullable: false,
-  })
-  password: string;
-
-  @Column({
-    type: 'boolean',
-    default: true,
-  })
-  isActive: boolean;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }
