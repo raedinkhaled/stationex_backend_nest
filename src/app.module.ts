@@ -20,8 +20,17 @@ import { DispenserModule } from './dispenser/dispenser.module';
 import { PistolModule } from './pistol/pistol.module';
 import { UserAccountModule } from './user-account/user-account.module';
 import { PaginationModule } from './common/pagination/pagination.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+const ENV = process.env.NODE_ENV;
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      //envFilePath: ['.env.development'],
+
+      envFilePath: !ENV ? '.env' : `.env.${ENV}`,
+    }),
     AuthModule.forRoot({
       // https://try.supertokens.com is for demo purposes. Replace this with the address of your core instance (sign up on supertokens.com), or self host a core.
       connectionURI: 'http://localhost:3567',
@@ -37,17 +46,17 @@ import { PaginationModule } from './common/pagination/pagination.module';
       },
     }),
     TypeOrmModule.forRootAsync({
-      imports: [],
-      inject: [],
-      useFactory: () => ({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         // entities: [User],
         synchronize: true,
-        port: 5432,
-        username: 'postgres',
-        password: 'admin',
-        host: 'localhost',
-        database: 'stationex-backend',
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        host: configService.get('DB_HOST'),
+        database: configService.get('DB_NAME'),
         autoLoadEntities: true,
       }),
     }),
