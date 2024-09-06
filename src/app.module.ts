@@ -21,6 +21,9 @@ import { PistolModule } from './pistol/pistol.module';
 import { UserAccountModule } from './user-account/user-account.module';
 import { PaginationModule } from './common/pagination/pagination.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import appConfig from './config/app.config';
+import databaseConfig from './config/database.config';
+import envValidation from './config/env.validation';
 
 const ENV = process.env.NODE_ENV;
 @Module({
@@ -30,6 +33,8 @@ const ENV = process.env.NODE_ENV;
       //envFilePath: ['.env.development'],
 
       envFilePath: !ENV ? '.env' : `.env.${ENV}`,
+      load: [appConfig, databaseConfig],
+      validationSchema: envValidation,
     }),
     AuthModule.forRoot({
       // https://try.supertokens.com is for demo purposes. Replace this with the address of your core instance (sign up on supertokens.com), or self host a core.
@@ -51,13 +56,13 @@ const ENV = process.env.NODE_ENV;
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         // entities: [User],
-        synchronize: true,
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        host: configService.get('DB_HOST'),
-        database: configService.get('DB_NAME'),
-        autoLoadEntities: true,
+        synchronize: configService.get('database.synchronize'),
+        port: configService.get('database.port'),
+        username: configService.get('database.user'),
+        password: configService.get('database.password'),
+        host: configService.get('database.host'),
+        database: configService.get('database.name'),
+        autoLoadEntities: configService.get('database.autoloadentities'),
       }),
     }),
     UsersModule,
