@@ -6,6 +6,18 @@ import { UsersModule } from './users/users.module';
 import { CompaniesModule } from './companies/companies.module';
 import { StationsModule } from './stations/stations.module';
 import { AuthModule } from './auth/auth.module';
+import { LiabilityTypeModule } from './liability-type/liability-type.module';
+import { PaymentMethodModule } from './payment-method/payment-method.module';
+import { CounterTypeModule } from './counter-type/counter-type.module';
+import { DispenserTypeModule } from './dispenser-type/dispenser-type.module';
+import { TpetypeModule } from './tpetype/tpetype.module';
+import { CurrencyModule } from './currency/currency.module';
+import { FuelModule } from './fuel/fuel.module';
+import { FuelRateModule } from './fuel-rate/fuel-rate.module';
+import { TankModule } from './tank/tank.module';
+import { SectionModule } from './section/section.module';
+import { DispenserModule } from './dispenser/dispenser.module';
+import { PistolModule } from './pistol/pistol.module';
 @Module({
   imports: [
     AuthModule.forRoot({
@@ -41,6 +53,18 @@ import { AuthModule } from './auth/auth.module';
     CompaniesModule,
     StationsModule,
     AuthModule,
+    LiabilityTypeModule,
+    PaymentMethodModule,
+    CounterTypeModule,
+    DispenserTypeModule,
+    TpetypeModule,
+    CurrencyModule,
+    FuelModule,
+    FuelRateModule,
+    TankModule,
+    SectionModule,
+    DispenserModule,
+    PistolModule,
   ],
   controllers: [AppController],
   providers: [AppService],
