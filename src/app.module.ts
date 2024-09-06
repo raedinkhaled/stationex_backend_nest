@@ -18,6 +18,7 @@ import { TankModule } from './tank/tank.module';
 import { SectionModule } from './section/section.module';
 import { DispenserModule } from './dispenser/dispenser.module';
 import { PistolModule } from './pistol/pistol.module';
+import { UserAccountModule } from './user-account/user-account.module';
 @Module({
   imports: [
     AuthModule.forRoot({
@@ -65,6 +66,7 @@ import { PistolModule } from './pistol/pistol.module';
     SectionModule,
     DispenserModule,
     PistolModule,
+    UserAccountModule,
   ],
   controllers: [AppController],
   providers: [AppService],

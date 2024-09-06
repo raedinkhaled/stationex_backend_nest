@@ -3,7 +3,6 @@ import { CompaniesController } from './companies.controller';
 import { CompaniesService } from './companies.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Company } from './company.entity';
-import { PermissioncompanyController } from './permission/permissioncompany/permissioncompany.controller';
 import { PermissioncompanyController } from './permission/permissioncompany.controller';
 import { PermissioncompanyService } from './permission/permissioncompany.service';
 

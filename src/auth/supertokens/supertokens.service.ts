@@ -7,10 +7,14 @@ import Dashboard from 'supertokens-node/recipe/dashboard';
 import UserMetadata from 'supertokens-node/recipe/usermetadata';
 
 import { ConfigInjectionToken, AuthModuleConfig } from '../config.interface';
+import { UserAccountService } from 'src/user-account/user-account.service';
 
 @Injectable()
 export class SupertokensService {
-  constructor(@Inject(ConfigInjectionToken) private config: AuthModuleConfig) {
+  constructor(
+    private readonly userAccountService: UserAccountService,
+    @Inject(ConfigInjectionToken) private config: AuthModuleConfig,
+  ) {
     supertokens.init({
       appInfo: config.appInfo,
       supertokens: {
@@ -49,7 +53,7 @@ export class SupertokensService {
                   if (response.status === 'OK') {
                     const formFields = input.formFields;
                     const userId = response.user.id;
-                    console.log(formFields);
+
                     const firstName = formFields.find(
                       (field) => field.id === 'firstName',
                     );
@@ -65,6 +69,15 @@ export class SupertokensService {
                       last_name: lastName.value,
                       phone_number: phoneNumber.value,
                     });
+                    const userAccount = {
+                      superTokensUserId: userId,
+                      firstName: firstName.value,
+                      lastName: lastName.value,
+                      email: formFields.find((field) => field.id === 'email')
+                        .value,
+                      phoneNumber: phoneNumber.value,
+                    };
+                    await userAccountService.createUserAccount(userAccount);
                   }
 
                   return response;
