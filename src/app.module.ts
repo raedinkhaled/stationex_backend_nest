@@ -24,6 +24,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import envValidation from './config/env.validation';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ApiResponseInterceptor } from './common/interceptors/api-response/api-response.interceptor';
 
 const ENV = process.env.NODE_ENV;
 @Module({
@@ -45,7 +47,7 @@ const ENV = process.env.NODE_ENV;
         // Learn more about this on https://supertokens.com/docs/thirdpartyemailpassword/appinfo
         appName: 'Stationex',
         apiDomain: 'http://localhost:3000',
-        websiteDomain: 'http://localhost:4000',
+        websiteDomain: 'http://localhost:4200',
         apiBasePath: '/auth',
         websiteBasePath: '/auth',
       },
@@ -85,6 +87,12 @@ const ENV = process.env.NODE_ENV;
     PaginationModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ApiResponseInterceptor,
+    },
+  ],
 })
 export class AppModule {}

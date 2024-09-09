@@ -10,4 +10,5 @@ export default Joi.object({
   DB_HOST: Joi.string().required(),
   DB_NAME: Joi.string().required(),
   DB_USERNAME: Joi.string().required(),
+  API_VERSION: Joi.string().required(),
 });

@@ -8,6 +8,7 @@ export class DispenserType {
   @Column({
     type: 'varchar',
     length: 96,
+    nullable: false,
   })
   name: string;
 
@@ -15,4 +16,10 @@ export class DispenserType {
     type: 'text',
   })
   informations: string;
+
+  @Column({
+    type: 'integer',
+    nullable: false,
+  })
+  pistolnumber: number;
 }
