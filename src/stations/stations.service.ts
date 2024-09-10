@@ -25,4 +25,10 @@ export class StationsService {
     });
     return await this.stationRepository.save(createdStation);
   }
+
+  public async findOneByID(id: number) {
+    return await this.stationRepository.findOneBy({
+      id,
+    });
+  }
 }

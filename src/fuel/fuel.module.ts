@@ -9,5 +9,6 @@ import { PaginationModule } from 'src/common/pagination/pagination.module';
   providers: [FuelService],
   controllers: [FuelController],
   imports: [TypeOrmModule.forFeature([Fuel]), PaginationModule],
+  exports: [FuelService],
 })
 export class FuelModule {}

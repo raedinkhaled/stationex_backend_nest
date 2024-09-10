@@ -1,10 +1,11 @@
 import { Company } from 'src/companies/company.entity';
+import { Tank } from 'src/tank/tank.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToOne,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -21,11 +22,7 @@ export class Station {
   })
   stationName: string;
 
-  @OneToOne(() => Company, {
-    cascade: true,
-    eager: true,
-  })
-  @JoinColumn()
+  @ManyToOne(() => Company, (company) => company.stations)
   company: Company;
 
   @Column({
@@ -78,6 +75,9 @@ export class Station {
     default: false,
   })
   active: boolean;
+
+  @OneToMany(() => Tank, (tank) => tank.station, { eager: true })
+  tanks: Tank[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

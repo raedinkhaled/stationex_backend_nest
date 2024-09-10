@@ -11,5 +11,6 @@ import { PermissionstationController } from './permission/permissionstation.cont
   providers: [StationsService, PermissionstationService],
   controllers: [StationsController, PermissionstationController],
   imports: [TypeOrmModule.forFeature([Station]), CompaniesModule],
+  exports: [StationsService],
 })
 export class StationsModule {}

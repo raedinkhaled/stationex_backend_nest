@@ -1,7 +1,9 @@
+import { Station } from 'src/stations/station.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -73,6 +75,12 @@ export class Company {
     nullable: false,
   })
   zip: string;
+
+  @OneToMany(() => Station, (station) => station.company, {
+    eager: true,
+    cascade: true,
+  })
+  stations: Station[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

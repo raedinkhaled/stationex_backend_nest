@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Tank } from 'src/tank/tank.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Fuel {
@@ -30,4 +31,6 @@ export class Fuel {
     default: true,
   })
   active: boolean;
+  @OneToMany(() => Tank, (tank) => tank.fuel)
+  tanks: Tank[];
 }

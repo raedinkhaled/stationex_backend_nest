@@ -43,4 +43,10 @@ export class FuelService {
 
     return fuels;
   }
+
+  public async findOneByID(id: number) {
+    return await this.fuelRepository.findOneBy({
+      id,
+    });
+  }
 }
