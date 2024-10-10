@@ -1,16 +1,23 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { UserAccount } from 'src/user-account/user-account.entity';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Station } from '../station.entity';
 
 @Entity()
 export class PermissionStation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  userid: string;
+  @ManyToOne(() => UserAccount)
+  @JoinColumn()
+  user: UserAccount;
 
   @Column()
-  PermissionName: string;
+  permissionName: string;
 
   @Column()
-  PermissionValue: number;
+  permissionValue: boolean;
+
+  @ManyToOne(() => Station)
+  @JoinColumn()
+  station: Station
 }
