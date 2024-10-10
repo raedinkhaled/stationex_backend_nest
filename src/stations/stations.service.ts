@@ -23,12 +23,13 @@ export class StationsService {
       ...createStationDto,
       company: company,
     });
-    return await this.stationRepository.save(createdStation);
+    await this.stationRepository.save(createdStation);
+    return createdStation;
   }
 
   public async findOneByID(id: number) {
-    return await this.stationRepository.findOneBy({
-      id,
+    return await this.stationRepository.findOne({
+      where: { id },
     });
   }
 }

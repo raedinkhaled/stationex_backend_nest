@@ -57,5 +57,5 @@ export class CreateStationDTO {
   @IsOptional()
   @IsString()
   @MaxLength(96)
-  article: string;
+  article?: string;
 }

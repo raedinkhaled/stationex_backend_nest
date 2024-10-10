@@ -1,4 +1,5 @@
 import {
+  IsInt,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -7,6 +8,9 @@ import {
 } from 'class-validator';
 
 export class CreateCompanyDTO {
+  @IsInt()
+  @IsNotEmpty()
+  userID: number;
   @IsNotEmpty()
   @IsString()
   @MinLength(3)
@@ -21,13 +25,12 @@ export class CreateCompanyDTO {
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(8)
   @MaxLength(13)
+  @MinLength(3)
   phoneFirst: string;
 
   @IsOptional()
   @IsString()
-  @MinLength(8)
   @MaxLength(13)
   phoneSecond?: string;
 

@@ -17,4 +17,18 @@ export class UserAccountService {
 
     return await this.userAccountRepo.save(createdUserAccount);
   }
+
+  public async getUserAccount(supertokensid: string) {
+    return await this.userAccountRepo.find({
+      where: {
+        supertokensuserid: supertokensid,
+      },
+    });
+  }
+
+  public async findOneByID(id: number) {
+    return await this.userAccountRepo.findOneBy({
+      id,
+    });
+  }
 }

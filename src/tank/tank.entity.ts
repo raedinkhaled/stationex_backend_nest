@@ -1,13 +1,20 @@
 import { Fuel } from 'src/fuel/fuel.entity';
 import { Station } from 'src/stations/station.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Tank {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Station, (station) => station.tanks)
+  @ManyToOne(() => Station)
+  @JoinColumn()
   station: Station;
 
   @ManyToOne(() => Fuel, (fuel) => fuel.tanks, { eager: true })

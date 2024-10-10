@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Company } from 'src/companies/company.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class UserAccount {
@@ -39,6 +40,12 @@ export class UserAccount {
     nullable: false,
   })
   phonenumber: string;
+
+  @OneToMany(() => Company, (company) => company.user, {
+    eager: true,
+    cascade: true,
+  })
+  companies: Company[];
 
   @Column({
     type: 'boolean',

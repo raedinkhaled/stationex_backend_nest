@@ -1,11 +1,9 @@
 import { Company } from 'src/companies/company.entity';
-import { Tank } from 'src/tank/tank.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -75,9 +73,6 @@ export class Station {
     default: false,
   })
   active: boolean;
-
-  @OneToMany(() => Tank, (tank) => tank.station, { eager: true })
-  tanks: Tank[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

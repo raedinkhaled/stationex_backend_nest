@@ -25,6 +25,26 @@ export class SupertokensService {
       recipeList: [
         Session.init({
           exposeAccessTokenToFrontendInCookieBasedAuth: true,
+          override: {
+            functions: (originalImplementation) => {
+              return {
+                ...originalImplementation,
+                createNewSession: async function (input) {
+                  const userId = input.userId;
+                  const useraccount =
+                    await userAccountService.getUserAccount(userId);
+
+                  // This goes in the access token, and is available to read on the frontend.
+                  input.accessTokenPayload = {
+                    ...input.accessTokenPayload,
+                    accountid: useraccount.at(0).id,
+                  };
+
+                  return originalImplementation.createNewSession(input);
+                },
+              };
+            },
+          },
         }),
         UserMetadata.init(),
         EmailPassword.init({

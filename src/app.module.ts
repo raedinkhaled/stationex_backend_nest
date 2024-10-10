@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
 import { CompaniesModule } from './companies/companies.module';
 import { StationsModule } from './stations/stations.module';
 import { AuthModule } from './auth/auth.module';
@@ -67,7 +66,6 @@ const ENV = process.env.NODE_ENV;
         autoLoadEntities: configService.get('database.autoloadentities'),
       }),
     }),
-    UsersModule,
     CompaniesModule,
     StationsModule,
     AuthModule,

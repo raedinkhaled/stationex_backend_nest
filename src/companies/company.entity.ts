@@ -1,8 +1,10 @@
 import { Station } from 'src/stations/station.entity';
+import { UserAccount } from 'src/user-account/user-account.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -19,13 +21,6 @@ export class Company {
     nullable: false,
   })
   name: string;
-
-  @Column({
-    type: 'varchar',
-    length: 200,
-    nullable: false,
-  })
-  createByUserId: string;
 
   @Column({
     type: 'varchar',
@@ -77,10 +72,12 @@ export class Company {
   zip: string;
 
   @OneToMany(() => Station, (station) => station.company, {
-    eager: true,
     cascade: true,
   })
   stations: Station[];
+
+  @ManyToOne(() => UserAccount, (user) => user.companies)
+  user: UserAccount;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
