@@ -17,6 +17,9 @@ export class UserAccount {
   phonenumber: string;
   @ApiProperty()
   isactive: boolean;
+
+  @ApiProperty()
+  role: string;
 }
 @Expose()
 export class GetUserAccountApiResponseDto {

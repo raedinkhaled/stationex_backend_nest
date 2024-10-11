@@ -1,6 +1,12 @@
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
+
 export class CreatePermissionStationDTO {
-    userId: number;
-    stationId: number;
-    permissionName: string;
-    permissionValue: boolean;
+  @IsNumber()
+  userId: number;
+  @IsNumber()
+  stationId: number;
+  @IsString()
+  permissionName: string;
+  @IsBoolean()
+  permissionValue: boolean;
 }

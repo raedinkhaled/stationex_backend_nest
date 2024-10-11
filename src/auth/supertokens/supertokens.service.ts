@@ -38,6 +38,7 @@ export class SupertokensService {
                   input.accessTokenPayload = {
                     ...input.accessTokenPayload,
                     accountid: useraccount.at(0).id,
+                    accountrole: useraccount.at(0).role,
                   };
 
                   return originalImplementation.createNewSession(input);
@@ -99,6 +100,7 @@ export class SupertokensService {
                       email: formFields.find((field) => field.id === 'email')
                         .value,
                       phonenumber: phoneNumber.value,
+                      role: 'owner',
                     };
                     await userAccountService.createUserAccount(userAccount);
                   }

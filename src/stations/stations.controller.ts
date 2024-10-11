@@ -19,6 +19,8 @@ import {
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SessionContainer } from 'supertokens-node/recipe/session';
 import { GetStationApiResponseDto } from './dtos/get-station-response.dto';
+import { PermissionStationGuard } from './permission/permissionstation.guard';
+import { PermissionStationName } from './permission/permissionstation.decorator';
 
 @Controller('stations')
 @ApiTags('Stations')
@@ -43,7 +45,7 @@ export class StationsController {
     return plainToInstance(CreateStationApiResponseDto, stationR);
   }
 
-  @Get(':id')
+  @Get(':stationId')
   @ApiOperation({
     summary: 'Get a Station by ID',
   })
@@ -52,11 +54,13 @@ export class StationsController {
     description: 'OK',
     type: GetStationApiResponseDto,
   })
+  @UseGuards(PermissionStationGuard)
+  @PermissionStationName('view_station')
   public async getStationByID(
-    @Param('id') id: number,
+    @Param('stationId') stationId: number,
   ): Promise<GetStationApiResponseDto> {
     try {
-      const station = await this.stationService.findOneByID(id);
+      const station = await this.stationService.findOneByID(stationId);
 
       if (!station) {
         throw new NotFoundException('Station not found');

@@ -12,7 +12,12 @@ import { PermissionStation } from './permission/PermissionStation.entity';
 @Module({
   providers: [StationsService, PermissionstationService],
   controllers: [StationsController, PermissionstationController],
-  imports: [TypeOrmModule.forFeature([Station]), CompaniesModule, UserAccountModule, TypeOrmModule.forFeature([PermissionStation])],
+  imports: [
+    TypeOrmModule.forFeature([Station]),
+    CompaniesModule,
+    UserAccountModule,
+    TypeOrmModule.forFeature([PermissionStation]),
+  ],
   exports: [StationsService],
 })
-export class StationsModule { }
+export class StationsModule {}

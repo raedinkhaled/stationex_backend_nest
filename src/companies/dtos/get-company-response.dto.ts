@@ -29,7 +29,9 @@ export class Companies {
   @ApiProperty({ type: [Station] })
   stations: Station[];
   @ApiProperty({ type: UserAccount })
-  user: UserAccount;
+  owner: UserAccount;
+  @ApiProperty({ type: [UserAccount] })
+  users: UserAccount[];
   @ApiProperty()
   createdAt: Date;
   @ApiProperty()

@@ -32,4 +32,11 @@ export class StationsService {
       where: { id },
     });
   }
+
+  public async findOneByIDandLoadCompany(id: number) {
+    return await this.stationRepository.findOne({
+      where: { id },
+      relations: ['company', 'company.owner'],
+    });
+  }
 }

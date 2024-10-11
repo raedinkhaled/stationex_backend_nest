@@ -1,5 +1,13 @@
 import { Company } from 'src/companies/company.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class UserAccount {
@@ -41,11 +49,16 @@ export class UserAccount {
   })
   phonenumber: string;
 
-  @OneToMany(() => Company, (company) => company.user, {
-    eager: true,
+  @OneToMany(() => Company, (company) => company.owner, {
     cascade: true,
   })
-  companies: Company[];
+  companies: Company[]; // Companies owned by this user
+
+  @ManyToOne(() => Company, (company) => company.users)
+  company: Company; // The company the user belongs to
+
+  @Column({ type: 'varchar', nullable: false, default: 'user' })
+  role: string; // Roles in company 'user', 'owner',
 
   @Column({
     type: 'boolean',
@@ -53,4 +66,10 @@ export class UserAccount {
     default: false,
   })
   isactive: boolean;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

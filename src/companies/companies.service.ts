@@ -23,7 +23,7 @@ export class CompaniesService {
 
     const createdCompany = this.companyRepository.create({
       ...createCompanyDto,
-      user: userowner,
+      owner: userowner,
     });
     return await this.companyRepository.save(createdCompany);
   }
@@ -31,16 +31,16 @@ export class CompaniesService {
   public async findOneByID(id: number) {
     return await this.companyRepository.findOne({
       where: { id },
-      relations: ['user'],
+      relations: ['owner'],
     });
   }
 
   public async getCompaniesByUserID(userID: number) {
     return await this.companyRepository.find({
       where: {
-        user: { id: userID },
+        owner: { id: userID },
       },
-      relations: ['user', 'stations'],
+      relations: ['owner', 'stations'],
     });
   }
 

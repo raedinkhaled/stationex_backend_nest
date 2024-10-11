@@ -1,5 +1,11 @@
 import { UserAccount } from 'src/user-account/user-account.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Station } from '../station.entity';
 
 @Entity()
@@ -11,13 +17,15 @@ export class PermissionStation {
   @JoinColumn()
   user: UserAccount;
 
-  @Column()
+  @Column({
+    default: false,
+  })
   permissionName: string;
 
-  @Column()
+  @Column({ type: 'boolean', nullable: false })
   permissionValue: boolean;
 
   @ManyToOne(() => Station)
   @JoinColumn()
-  station: Station
+  station: Station;
 }

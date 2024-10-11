@@ -71,7 +71,7 @@ export class CompaniesController {
         throw new NotFoundException('Company not found');
       }
       // Check if the logged-in user owns the company
-      if (accessTokenPayload.accountid === company.user.id) {
+      if (accessTokenPayload.accountid === company.owner.id) {
         return plainToInstance(GetCompanyApiResponseDto, company);
       } else {
         throw new ForbiddenException('You do not have access to this company');

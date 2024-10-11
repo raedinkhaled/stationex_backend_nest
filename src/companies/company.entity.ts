@@ -77,7 +77,10 @@ export class Company {
   stations: Station[];
 
   @ManyToOne(() => UserAccount, (user) => user.companies)
-  user: UserAccount;
+  owner: UserAccount;
+
+  @OneToMany(() => UserAccount, (user) => user.company)
+  users: UserAccount[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
