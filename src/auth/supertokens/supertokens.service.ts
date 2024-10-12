@@ -39,6 +39,8 @@ export class SupertokensService {
                     ...input.accessTokenPayload,
                     accountid: useraccount.at(0).id,
                     accountrole: useraccount.at(0).role,
+                    firstName: useraccount.at(0).firstname,
+                    lastName: useraccount.at(0).lastname,
                   };
 
                   return originalImplementation.createNewSession(input);
@@ -60,6 +62,9 @@ export class SupertokensService {
               {
                 id: 'phoneNumber',
               },
+              {
+                id: 'accountType',
+              },
             ],
           },
           override: {
@@ -71,12 +76,27 @@ export class SupertokensService {
                     throw Error('Should never come here');
                   }
 
+                  // Add formFields to userContext
+                  input.userContext.formFields = input.formFields;
+
                   const response =
                     await originalImplementation.signUpPOST(input);
 
-                  if (response.status === 'OK') {
-                    const formFields = input.formFields;
-                    const userId = response.user.id;
+
+
+                  return response;
+                },
+              };
+            },
+            functions: (originalImplementation) => {
+              return {
+                ...originalImplementation,
+                signUp: async function (input) {
+                  let resp = await originalImplementation.signUp(input)
+
+                  if (resp.status === "OK" && resp.user.loginMethods.length === 1 && input.session === undefined) {
+                    const formFields = input.userContext.formFields;
+                    const userId = resp.user.id
 
                     const firstName = formFields.find(
                       (field) => field.id === 'firstName',
@@ -87,11 +107,16 @@ export class SupertokensService {
                     const phoneNumber = formFields.find(
                       (field) => field.id === 'phoneNumber',
                     );
+
+                    const accountType = formFields.find(
+                      (field) => field.id === 'accountType',
+                    );
                     await UserMetadata.updateUserMetadata(userId, {
                       first_name: firstName.value,
 
                       last_name: lastName.value,
                       phone_number: phoneNumber.value,
+                      accountType: accountType.value
                     });
                     const userAccount = {
                       supertokensuserid: userId,
@@ -100,15 +125,14 @@ export class SupertokensService {
                       email: formFields.find((field) => field.id === 'email')
                         .value,
                       phonenumber: phoneNumber.value,
-                      role: 'owner',
+                      role: accountType.value,
                     };
                     await userAccountService.createUserAccount(userAccount);
                   }
-
-                  return response;
-                },
-              };
-            },
+                  return resp
+                }
+              }
+            }
           },
         }),
         Dashboard.init(),
