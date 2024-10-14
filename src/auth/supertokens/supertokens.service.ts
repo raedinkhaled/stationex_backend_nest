@@ -82,8 +82,6 @@ export class SupertokensService {
                   const response =
                     await originalImplementation.signUpPOST(input);
 
-
-
                   return response;
                 },
               };
@@ -92,11 +90,16 @@ export class SupertokensService {
               return {
                 ...originalImplementation,
                 signUp: async function (input) {
-                  let resp = await originalImplementation.signUp(input)
+                  const resp = await originalImplementation.signUp(input);
 
-                  if (resp.status === "OK" && resp.user.loginMethods.length === 1 && input.session === undefined) {
+                  if (
+                    resp.status === 'OK' &&
+                    resp.user.loginMethods.length === 1 &&
+                    input.session === undefined
+                  ) {
                     const formFields = input.userContext.formFields;
-                    const userId = resp.user.id
+                    const userId = resp.user.id;
+                    console.log(formFields);
 
                     const firstName = formFields.find(
                       (field) => field.id === 'firstName',
@@ -116,7 +119,7 @@ export class SupertokensService {
 
                       last_name: lastName.value,
                       phone_number: phoneNumber.value,
-                      accountType: accountType.value
+                      accountType: accountType.value,
                     });
                     const userAccount = {
                       supertokensuserid: userId,
@@ -129,10 +132,10 @@ export class SupertokensService {
                     };
                     await userAccountService.createUserAccount(userAccount);
                   }
-                  return resp
-                }
-              }
-            }
+                  return resp;
+                },
+              };
+            },
           },
         }),
         Dashboard.init(),
