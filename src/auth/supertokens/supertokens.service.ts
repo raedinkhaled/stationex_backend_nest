@@ -99,7 +99,6 @@ export class SupertokensService {
                   ) {
                     const formFields = input.userContext.formFields;
                     const userId = resp.user.id;
-                    console.log(formFields);
 
                     const firstName = formFields.find(
                       (field) => field.id === 'firstName',
